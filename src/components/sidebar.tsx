@@ -63,6 +63,14 @@ export default function Sidebar() {
     getProfile();
   }, []);
 
+  async function handleLogout() {
+    await fetch("/auth/signout", {
+      method: "POST",
+    });
+
+    window.location.href = "/login";
+  }
+
   return (
     <aside className="flex h-full flex-col bg-gradient-to-b from-green-700 to-emerald-600 text-white shadow-2xl">
       {/* HEADER */}
@@ -136,16 +144,13 @@ export default function Sidebar() {
       {/* USER */}
       <div className="border-t border-white/10 p-4">
 
-        <form
-          action="/auth/signout"
-          method="post"
+        <button
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-white transition hover:bg-red-500/20"
         >
-          <button className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-white transition hover:bg-red-500/20">
-            <LogOut size={18} />
-
-            Logout
-          </button>
-        </form>
+          <LogOut size={18} />
+          Logout
+        </button>
       </div>
     </aside>
   );
