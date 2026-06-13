@@ -192,7 +192,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-white/70">
+          {/* <p className="mt-6 text-center text-sm text-white/70">
             Belum punya akun?{" "}
             <Link
               href="/register"
@@ -200,7 +200,7 @@ export default function LoginPage() {
             >
               Daftar
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
