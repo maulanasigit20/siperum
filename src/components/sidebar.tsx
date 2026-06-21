@@ -12,6 +12,7 @@ import {
   FileText,
   LogOut,
   Home,
+  X,
 } from "lucide-react";
 
 const menus = [
@@ -37,27 +38,35 @@ const menus = [
   },
 ];
 
-export default function Sidebar() {
-  const pathname = usePathname();
-  const supabase = createClient();
-  const [profile, setProfile] =
-    useState<any>(null);
+interface SidebarProps {
+  mobile?: boolean;
+  onClose?: () => void;
+}
 
-  async function getProfile() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+export default function Sidebar({
+  mobile,
+  onClose,
+}: SidebarProps) {
+    const pathname = usePathname();
+    const supabase = createClient();
+    const [profile, setProfile] =
+      useState<any>(null);
 
-    if (!user) return;
+    async function getProfile() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-    const { data } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", user.id)
-      .single();
+      if (!user) return;
 
-    setProfile(data);
-  }
+      const { data } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+      setProfile(data);
+    }
 
   useEffect(() => {
     getProfile();
@@ -73,6 +82,26 @@ export default function Sidebar() {
 
   return (
     <aside className="flex h-full flex-col bg-gradient-to-b from-green-700 to-emerald-600 text-white shadow-2xl">
+      {mobile && (
+      <div className="flex items-center justify-between border-b border-white/10 p-5">
+        <div>
+          <h1 className="text-xl font-bold">
+            SIPERUM
+          </h1>
+
+          <p className="text-xs text-green-100">
+            Menu Navigasi
+          </p>
+        </div>
+
+        <button
+          onClick={onClose}
+          className="text-white"
+        >
+          <X size={24} />
+        </button>
+      </div>
+    )}
       {/* HEADER */}
       <div className="border-b border-white/10 p-6">
         <div className="flex items-center gap-3">
@@ -109,6 +138,7 @@ export default function Sidebar() {
               <Link
                 key={menu.href}
                 href={menu.href}
+                onClick={() => onClose?.()}
                 className={`flex items-center gap-3 rounded-2xl px-4 py-3 transition-all duration-200 ${
                   active
                     ? "bg-white text-green-700 shadow-lg"
