@@ -7,13 +7,13 @@ import { useState } from "react";
 import FinanceChart from "./finance-chart";
 
 import AppLayout from "./app-layout";
+import Image from "next/image";
 
-import {
-  Swiper,
-  SwiperSlide,
-} from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
+import "swiper/css/pagination";
 
 import {
   Wallet,
@@ -177,35 +177,51 @@ chartTransaksi?.forEach((item: any) => {
 
   return (
     <AppLayout>
-      <div className="lg:hidden h-2" />
+      <div className="lg:hidden" />
       {/* MOBILE HEADER */}
-      <div className="mb-6 lg:hidden">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-slate-900">
-              SIPERUM
-            </h1>
+        <div className="lg:hidden">
+          <div className="flex items-center justify-between">
 
-            <p className="text-xs text-slate-500">
-              by SICODE
-            </p>
+            {/* LOGO */}
+            <Image
+              src="images/logo-siperum.svg"
+              alt="Siperum"
+              width={140}
+              height={40}
+              priority
+            />
+
+            {/* RIGHT */}
+            <div className="flex items-center gap-3 mr-4">
+
+              {/* NOTIF */}
+              <button className="relative flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-sm">
+
+                <Bell
+                  size={20}
+                  className="text-slate-700"
+                />
+
+                {/* Badge */}
+                <div className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500" />
+              </button>
+
+              {/* PROFILE */}
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-green-600 font-bold text-white shadow">
+
+                {profile?.nama?.charAt(0)}
+              </div>
+
+            </div>
           </div>
 
-          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow">
-            🔔
-          </button>
+          {/* GREETING MOBILE*/}
+          <div className="pl-5 pb-5">
+            <h1 className="text-2xl text-white">
+              Hi! {profile?.nama}
+            </h1>
+          </div>
         </div>
-
-        <div className="mt-4">
-          <p className="text-sm text-slate-500">
-            Selamat Datang
-          </p>
-
-          <h2 className="text-xl font-bold text-slate-900">
-            {profile?.nama}
-          </h2>
-        </div>
-      </div>
 
       {/* DESKTOP HEADER */}
       <div className="mb-8 hidden overflow-hidden rounded-3xl bg-gradient-to-r from-green-700 to-emerald-500 p-8 text-white shadow-xl lg:block">
@@ -225,11 +241,23 @@ chartTransaksi?.forEach((item: any) => {
       {/* MOBILE SWIPE CARD */}
       <div className="lg:hidden">
         <Swiper
-          spaceBetween={12}
-          slidesPerView={1.1}
-        >
+        // slidesPerView={1.15}
+        // centeredSlides
+        // spaceBetween={15}
+
+        modules={[Pagination, Autoplay]}
+        slidesPerView={1.15}
+        centeredSlides
+        spaceBetween={16}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+          dynamicMainBullets: 3,
+        }}
+
+      >
           <SwiperSlide>
-            <div className="overflow-hidden rounded-[32px] bg-gradient-to-br from-green-700 via-green-600 to-emerald-500 p-6 text-white shadow-xl">
+            <div className=" overflow-hidden rounded-[32px] bg-gradient-to-br from-green-700 via-green-600 to-emerald-500 p-6 text-white shadow-xl">
               <p className="text-sm text-green-100">
                 Total Saldo Kas
               </p>
@@ -254,8 +282,10 @@ chartTransaksi?.forEach((item: any) => {
             </div>
           </SwiperSlide>
 
+          
+
           <SwiperSlide>
-            <div className="overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-700 to-cyan-500 p-6 text-white shadow-xl">
+            <div className=" overflow-hidden rounded-[32px] bg-gradient-to-br from-blue-700 to-cyan-500 p-6 text-white shadow-xl">
               <p className="text-sm opacity-80">
                 Total Pemasukan
               </p>
@@ -271,7 +301,7 @@ chartTransaksi?.forEach((item: any) => {
           </SwiperSlide>
 
           <SwiperSlide>
-              <div className="overflow-hidden rounded-[32px] bg-gradient-to-br from-red-600 to-rose-500 p-6 text-white shadow-xl">
+              <div className=" overflow-hidden rounded-[32px] bg-gradient-to-br from-red-600 to-rose-500 p-6 text-white shadow-xl">
                 <p className="text-sm opacity-80">
                   Total Pengeluaran
                 </p>
@@ -286,14 +316,22 @@ chartTransaksi?.forEach((item: any) => {
               </div>
             </SwiperSlide>
         </Swiper>
-        <div className="mt-3 flex justify-center gap-2">
-        <div className="h-2 w-6 rounded-full bg-green-600" />
-        <div className="h-2 w-2 rounded-full bg-slate-300" />
-        <div className="h-2 w-2 rounded-full bg-slate-300" />
-      </div>
       </div>
 
-        <div className="lg:hidden mt-6">
+      <div
+          className="lg:hidden
+            mt-3
+            rounded-t-[40px]
+            bg-white
+            px-5
+            pt-6
+            pb-28
+            shadow-2xl
+          "
+        > 
+
+            {/* QUICK MENU MOBILE */}
+        <div className="rounded-3xl bg-white p-5 shadow-lg lg:hidden">
           <h2 className="mb-4 font-bold text-slate-800">
             Menu Cepat
           </h2>
@@ -353,7 +391,7 @@ chartTransaksi?.forEach((item: any) => {
         </div>
 
       {/* RECENT MOBILE */}
-        <div className="lg:hidden mt-6 rounded-3xl bg-white p-5 shadow-sm">
+        <div className="lg:hidden mt-6 rounded-3xl bg-white p-5 shadow-lg">
           <div className="mb-5 flex items-center justify-between">
             <h2 className="text-lg font-bold text-slate-900">
               Transaksi Terbaru
@@ -439,6 +477,102 @@ chartTransaksi?.forEach((item: any) => {
           </div>
         </div>
 
+        {/* STATISTIK MOBILE */}
+        <div className="lg:hidden mt-6 rounded-3xl bg-white p-5 shadow-lg grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="rounded-2xl bg-white p-4 shadow-sm">
+            <Home size={26} />
+
+            <h3 className="mt-2 text-1xl font-bold">
+              40
+            </h3>
+
+            <p className="text-sm text-gray-500">
+              Kepala Keluarga
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-white p-4 shadow-sm">
+            <Users size={26} />
+
+            <h3 className="mt-2 text-1xl font-bold">
+              80
+            </h3>
+
+            <p className="text-sm text-gray-500">
+              Warga
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-white p-4 shadow-sm">
+            <Bell size={26} />
+
+            <h3 className="mt-2 text-1xl font-bold">
+              8
+            </h3>
+
+            <p className="text-sm text-gray-500">
+              Pengumuman Aktif
+            </p>
+          </div>
+
+          <div className="rounded-2xl bg-white p-4 shadow-sm">
+            <BadgeCheck size={26} />
+
+            <h3 className="mt-2 text-1xl font-bold">
+              92%
+            </h3>
+
+            <p className="text-sm text-gray-500">
+              Pembayaran Lancar
+            </p>
+          </div>
+        </div>
+
+
+        {/* CHART MOBILE */}
+
+        <div className="lg:hidden mt-6 rounded-3xl bg-white p-5 shadow-sm">
+          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-bold text-slate-800">
+              📊 Grafik Keuangan
+              </h2>
+
+              <p className="text-xs text-slate-500">
+                Tren pemasukan dan pengeluaran
+              </p>
+            </div>
+
+            <div className="flex gap-2">
+              <select
+                value={selectedYear}
+                onChange={(e) =>
+                  setSelectedYear(
+                    Number(e.target.value)
+                  )
+                }
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm shadow-sm"
+              >
+                {[2025, 2026, 2027].map(
+                  (year) => (
+                    <option
+                      key={year}
+                      value={year}
+                    >
+                      {year}
+                    </option>
+                  )
+                )}
+              </select>
+            </div>
+          </div>
+
+          <FinanceChart data={monthlyData} />
+        </div>
+
+        </div>
+
+
 
       {/* SALDO KAS */}
       <div className="hidden gap-5 md:grid-cols-3 lg:grid">
@@ -486,58 +620,6 @@ chartTransaksi?.forEach((item: any) => {
             <h2 className="mt-2 text-3xl font-bold text-red-500">
               Rp {totalKeluar.toLocaleString("id-ID")}
             </h2>
-          </div>
-        </div>
-
-
-        {/* STATISTIK MOBILE */}
-        <div className="lg:hidden mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-          <div className="rounded-2xl bg-white p-4 shadow-sm">
-            <Home size={26} />
-
-            <h3 className="mt-2 text-1xl font-bold">
-              40
-            </h3>
-
-            <p className="text-sm text-gray-500">
-              Kepala Keluarga
-            </p>
-          </div>
-
-          <div className="rounded-1xl bg-white p-4 shadow-sm">
-            <Users size={26} />
-
-            <h3 className="mt-2 text-1xl font-bold">
-              80
-            </h3>
-
-            <p className="text-sm text-gray-500">
-              Warga
-            </p>
-          </div>
-
-          <div className="rounded-1xl bg-white p-4 shadow-sm">
-            <Bell size={26} />
-
-            <h3 className="mt-2 text-1xl font-bold">
-              8
-            </h3>
-
-            <p className="text-sm text-gray-500">
-              Pengumuman Aktif
-            </p>
-          </div>
-
-          <div className="rounded-1xl bg-white p-4 shadow-sm">
-            <BadgeCheck size={26} />
-
-            <h3 className="mt-2 text-1xl font-bold">
-              92%
-            </h3>
-
-            <p className="text-sm text-gray-500">
-              Pembayaran Lancar
-            </p>
           </div>
         </div>
 
@@ -595,7 +677,7 @@ chartTransaksi?.forEach((item: any) => {
 
         {/* CHART */}
 
-        <div className="mt-6 rounded-3xl bg-white p-5 shadow-sm">
+        <div className="hidden mt-6 rounded-3xl bg-white p-5 shadow-sm lg:grid">
           <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h2 className="font-bold text-slate-800">

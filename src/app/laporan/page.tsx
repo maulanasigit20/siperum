@@ -381,9 +381,9 @@ export default function LaporanPage() {
 
         {/* Summary */}
 
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="mb-6 grid gap-4 md:grid-cols-4">
 
-          <div className="rounded-3xl bg-white p-6 shadow-lg">
+          <div className="rounded-3xl bg-white/80 p-5 shadow-lg backdrop-blur-md">
             <p className="text-sm text-slate-500">
               Total Masuk
             </p>
@@ -391,9 +391,9 @@ export default function LaporanPage() {
             <h2 className="mt-2 text-2xl font-bold text-green-600">
               Rp {totalMasuk.toLocaleString("id-ID")}
             </h2>
-          </div>
+          </div >
 
-          <div className="rounded-3xl bg-white p-6 shadow-lg">
+          <div className="rounded-3xl bg-white/80 p-5 shadow-lg backdrop-blur-md">
             <p className="text-sm text-slate-500">
               Total Keluar
             </p>
@@ -403,7 +403,7 @@ export default function LaporanPage() {
             </h2>
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow-lg">
+          <div className="rounded-3xl bg-white/80 p-5 shadow-lg backdrop-blur-md">
             <p className="text-sm text-slate-500">
               Saldo
             </p>
@@ -413,7 +413,7 @@ export default function LaporanPage() {
             </h2>
           </div>
 
-          <div className="rounded-3xl bg-white p-6 shadow-lg">
+          <div className="rounded-3xl bg-white/80 p-5 shadow-lg backdrop-blur-md">
             <p className="text-sm text-slate-500">
               Jumlah Transaksi
             </p>
@@ -440,7 +440,7 @@ export default function LaporanPage() {
         </div>
 
 
-      <div className="flex gap-3">
+      <div className="rounded-3xl bg-white/80 p-5 shadow-lg backdrop-blur-md">
 
         <div className="flex gap-2">
             {/* BULAN */}

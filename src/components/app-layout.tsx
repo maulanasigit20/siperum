@@ -37,7 +37,22 @@ export default function AppLayout({
       </div>
 
       {/* CONTENT */}
-      <main className="pb-28 p-4 lg:ml-[280px] lg:p-8 lg:pb-8">
+      <main
+        className="
+          
+          lg:ml-[280px]
+          lg:p-8
+          lg:pb-8
+
+          bg-gradient-to-b
+          from-[#1a0070]
+          via-[#0dff00]
+          to-[#00d000]
+
+          lg:bg-none
+          lg:bg-slate-100
+        "
+      >
         {children}
       </main>
 
